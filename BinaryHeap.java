@@ -3,6 +3,9 @@
 * as the tree is only represented by doing arithmetic on array indices, this requires to keep the tree perfectly balanced 
 * (except for the last level which may be incomplete)
 * we talk about implicit tree data structure
+*
+* Priority rule: Parent's key is greater than children keys.
+* 
 */
 //one more comment 2
 public class BinaryHeap {
