@@ -1,3 +1,4 @@
+// The idea is to keep a reference first to the top of the stack
 public class LinkedStackGeneric<Type> {
 	private Node first = null;
 	
@@ -8,17 +9,15 @@ public class LinkedStackGeneric<Type> {
 	public boolean isEmpty() { 
 		return first == null;
 	}
-	public void push(Type arg) {
+	public void push(Type item) {
 		Node oldfirst = first;
 		first = new Node();
-		first.item = arg;
+		first.item = item;
 		first.next = oldfirst;
 	}
 	public Type pop() {
-		Type obj = first.item;
+		Type item = first.item;
 		first = first.next;
-		return obj;
+		return item;
 	}
 }
-/* l'astuce ici est de garder une référence sur le premier élément de la pile
- */
