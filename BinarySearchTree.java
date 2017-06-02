@@ -53,6 +53,10 @@ public class BinarySearchTree {
 	  }
 	  return x;
   }
+  private int height(Node x) {
+      if (x == null) return -1;
+      return 1 + Math.max(height(x.left), height(x.right));
+  }
   private int size(Node x) {
       if (x == null) return 0;
       else return x.size;
