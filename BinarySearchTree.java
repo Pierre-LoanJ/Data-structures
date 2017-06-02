@@ -9,20 +9,22 @@ public class BinarySearchTree {
   
   public class Node {
     private int val;
-    private char key;
+    private Integer key;
     private Node left;
     private Node right;
+    public int size;
     
-    public Node(char key, int val) {
+    public Node(Integer key, int val, int size) {
       this.val = val;
       this.key = key;
+      this.size = size;
     }
   }
-  public void put(char key, int val) {
+  public void put(Integer key, int val) {
     root = put(root, key, val);
   }
-  private Node put(Node n, char key, int val) {
-    if (root == null) return new Node(key, val);
+  private Node put(Node n, Integer key, int val) {
+    if (root == null) return new Node(key, val, 1);
     else {
       if      (n.key == key) n.val   = val;
       else if (n.key <  key) n.right = put(n.right, key, val);
