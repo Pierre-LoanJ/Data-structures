@@ -6,6 +6,12 @@
 
 public class BinarySearchTree {
   private Node root;
+  private boolean hibbard = true; 
+  private Node root = null;
+  private int toRight = 0;
+  private int count = 0;
+  private int maxDepth;
+  private BinaryHeap depths = new BinaryHeap(1000);
   
   public class Node {
     private int val;
