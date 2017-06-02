@@ -43,6 +43,13 @@ public class BinarySearchTree {
       return n;
     }
   }
+  private Node putTree(Node n, Node subTree) {
+  	if (n == null) return subTree;
+	if (subTree.key < n.key) 	    n.left = putTree(n.left, subTree);
+	else if (subTree.key > n.key) n.right = putTree(n.right, subTree);
+	else 							n = subTree;
+	return n;
+  }
   private Node min(Node x) { 
       if (x.left == null) return x; 
       else                return min(x.left); 
