@@ -24,9 +24,7 @@ public class BinarySearchTree {
       this.size = size;
     }
   }
-  public void put(Integer key, int val) {
-    root = put(root, key, val);
-  }
+  
   private Node put(Node n, Integer key, int val) {
     if (root == null) {
       count++;
@@ -47,30 +45,6 @@ public class BinarySearchTree {
 	else if (subTree.key > n.key)       n.right = putTree(n.right, subTree);
 	else 				    n = subTree;
 	return n;
-  }
-  private Node min(Node x) { 
-      if (x.left == null) return x; 
-      else                return min(x.left); 
-  }
-  private Node max(Node x) {
-	  while (x.right != null) { // another way
-		  x = x.right;
-	  }
-	  return x;
-  }
-  private int height(Node x) {
-      if (x == null) return -1;
-      return 1 + Math.max(height(x.left), height(x.right));
-  }
-  private int size(Node x) {
-      if (x == null) return 0;
-      else return x.size;
-  }
-  private Node deleteMin(Node x) {
-      if (x.left == null) return x.right;
-      x.left = deleteMin(x.left);
-      x.size = size(x.left) + size(x.right) + 1;
-      return x;
   }
   private Node delete(Node x, int key) {
 	  if (x == null) return null;
@@ -116,6 +90,12 @@ public class BinarySearchTree {
 	  else if (key < x.key)  x.left = supprimer(x.left, key); // go left
 	  return x;
   }
+  private Node deleteMin(Node x) {
+      if (x.left == null) return x.right;
+      x.left = deleteMin(x.left);
+      x.size = size(x.left) + size(x.right) + 1;
+      return x;
+  }
   private void inorderRec(Node root) {
       if (root != null) {
     	  maxDepth++;
@@ -128,26 +108,25 @@ public class BinarySearchTree {
     	  depths.insert(maxDepth);
       }
   }
-  public Integer min() {
-	return min(root).key;
+  private Node min(Node x) { 
+      if (x.left == null) return x; 
+      else                return min(x.left); 
   }
-  public Integer max() {
-	return max(root).key;
+  private Node max(Node x) {
+	  while (x.right != null) { // another way
+		  x = x.right;
+	  }
+	  return x;
   }
-  public int height() {
-	  // implementation from the course
-      return height(root);
+  private int height(Node x) {
+      if (x == null) return -1;
+      return 1 + Math.max(height(x.left), height(x.right));
   }
-  public Integer size() {
-	  return size(root);
+  private int size(Node x) {
+      if (x == null) return 0;
+      else return x.size;
   }
-  public double hauteur() {
-	  // my own implementation. REQUIRES THE TREE TO BE PARSED BY INORDER()
-	  return depths.getMax();
-  }
-  public Integer taille() {
-	  return this.count;
-  }
+	
   public Integer get(Integer key) {
     Node x = root;
     while (x != null) {
@@ -157,19 +136,18 @@ public class BinarySearchTree {
     }
     return null;
   }
-  public void inorder() {
-	  maxDepth = 0;
-      inorderRec(root);
+  public void put(Integer key, int val) {
+    root = put(root, key, val);
   }
   public void delete(int key, boolean Hibbard) {
-	  	if (Hibbard) {
-	  		root = delete(root, key);
-	  			// With the Hibbard deletion the tree becomes less symmetric as it was
-			    // and becomes O(Sqrt(n)) time complex
-	  	}
-	  	else {	  		
-	  		if (toRight > -1) toRight++;
-	  		root = supprimer(root, key);
+	if (Hibbard) {
+		root = delete(root, key);
+	  	// With the Hibbard deletion the tree becomes less symmetric as it was
+		// and becomes O(Sqrt(n)) time complex
+	 }
+	 else {	  		
+	 	if (toRight > -1) toRight++;
+	  	root = supprimer(root, key);
 			 /* my own implementation.
 			  idea: the single difference with Hibbard deletion concerns the 2 children case only.
 			  My algorithm proceeds as follows:
@@ -203,8 +181,34 @@ public class BinarySearchTree {
 			   
 			   -> my tree is degenerated with 10^4 less deletion operations
 			 */
-	  	}
+	  }
   }
+  public void inorder() {
+      maxDepth = 0;
+      inorderRec(root);
+  }
+  public Integer min() {
+	return min(root).key;
+  }
+  public Integer max() {
+	return max(root).key;
+  }
+  public int height() {
+	  // implementation from the course
+      return height(root);
+  }
+  public Integer size() {
+	  return size(root);
+  }
+  public double hauteur() {
+	  // my own implementation. REQUIRES THE TREE TO BE PARSED BY INORDER()
+	  return depths.getMax();
+  }
+  public Integer taille() {
+	  return this.count;
+  }
+  
+
   public static void main(String[] args) {
     BinarySearchTree t = new BinarySearchTree();
   }
