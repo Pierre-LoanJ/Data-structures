@@ -30,11 +30,16 @@ public class BinarySearchTree {
     root = put(root, key, val);
   }
   private Node put(Node n, Integer key, int val) {
-    if (root == null) return new Node(key, val, 1);
+    if (root == null) {
+      count++;
+      return new Node(key, val, 1);
+    }
     else {
       if      (n.key == key) n.val   = val;
       else if (n.key <  key) n.right = put(n.right, key, val);
       else if (n.key >  key) n.left  = put(n.left, key, val);
+      
+       n.size = 1 + size(n.left) + size(n.right);
       return n;
     }
   }
