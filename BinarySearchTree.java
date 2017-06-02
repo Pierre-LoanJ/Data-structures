@@ -32,7 +32,7 @@ public class BinarySearchTree {
       return n;
     }
   }
-  public Integer get(char key) {
+  public Integer get(Integer key) {
     Node x = root;
     while (x != null) {
       if      (x.key == key) return x.val;
@@ -41,7 +41,7 @@ public class BinarySearchTree {
     }
     return null;
   }
-  public void delete(char key) {
+  public void delete(Integer key) {
     
   }
   public static void main(String[] args) {
