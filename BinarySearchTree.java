@@ -9,7 +9,7 @@ public class BinarySearchTree {
   private int toRight = 0;
   private int count = 0;
   private int maxDepth;
-  private BinaryHeap depths = new BinaryHeap(1000);
+  private BinaryHeap depths = new BinaryHeap(10);
   
   public class Node {
     private int val;
@@ -44,8 +44,8 @@ public class BinarySearchTree {
   private Node putTree(Node n, Node subTree) {
   	if (n == null) return subTree;
 	if (subTree.key < n.key) 	    n.left = putTree(n.left, subTree);
-	else if (subTree.key > n.key) n.right = putTree(n.right, subTree);
-	else 							n = subTree;
+	else if (subTree.key > n.key)       n.right = putTree(n.right, subTree);
+	else 				    n = subTree;
 	return n;
   }
   private Node min(Node x) { 
@@ -72,10 +72,10 @@ public class BinarySearchTree {
       x.size = size(x.left) + size(x.right) + 1;
       return x;
   }
-   private Node delete(Node x, int key) {
+  private Node delete(Node x, int key) {
 	  if (x == null) return null;
-	  if      (key < x.key) x.left  = deleteHibbard(x.left, key);
-	  else if (key > x.key) x.right = deleteHibbard(x.right, key);
+	  if      (key < x.key) x.left  = delete(x.left, key);
+	  else if (key > x.key) x.right = delete(x.right, key);
 	  else {
 		  count--;
 		  if (x.right == null) return x.left;
@@ -108,15 +108,15 @@ public class BinarySearchTree {
 			  if (toRight == -1) x = putTree(x.left, x.right); //or inverse
 			  else if (toRight >= 0) {
 				  if (toRight%2 == 1) x = putTree(x.right, x.left);
-				  else 	  			  x = putTree(x.left, x.right);
+				  else 	  	      x = putTree(x.left, x.right);
 			  }
 		  }
 	  }
-	  else if (key > x.key) x.right = delete(x.right, key); // go right
-	  else if (key < x.key)  x.left = delete(x.left, key); // go left
+	  else if (key > x.key) x.right = supprimer(x.right, key); // go right
+	  else if (key < x.key)  x.left = supprimer(x.left, key); // go left
 	  return x;
   }
- private void inorderRec(Node root) {
+  private void inorderRec(Node root) {
       if (root != null) {
     	  maxDepth++;
           inorderRec(root.left);
