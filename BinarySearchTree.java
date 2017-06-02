@@ -5,8 +5,6 @@
 */
 
 public class BinarySearchTree {
-  private Node root;
-  private boolean hibbard = true; 
   private Node root = null;
   private int toRight = 0;
   private int count = 0;
@@ -74,7 +72,7 @@ public class BinarySearchTree {
       x.size = size(x.left) + size(x.right) + 1;
       return x;
   }
-   private Node deleteHibbard(Node x, int key) {
+   private Node delete(Node x, int key) {
 	  if (x == null) return null;
 	  if      (key < x.key) x.left  = deleteHibbard(x.left, key);
 	  else if (key > x.key) x.right = deleteHibbard(x.right, key);
@@ -90,7 +88,7 @@ public class BinarySearchTree {
 	  x.size = size(x.left) + size(x.right) + 1;
 	  return x;
   }
-  private Node delete(Node x, int key) {
+  private Node supprimer(Node x, int key) {
 	  if (x == null) return null;
 	  
 	  // search the node to be deleted
@@ -163,15 +161,15 @@ public class BinarySearchTree {
 	  maxDepth = 0;
       inorderRec(root);
   }
-  public void delete(int key) {
-	  	if (hibbard) {
-	  		root = deleteHibbard(root, key);
+  public void delete(int key, boolean Hibbard) {
+	  	if (Hibbard) {
+	  		root = delete(root, key);
 	  			// With the Hibbard deletion the tree becomes less symmetric as it was
 			    // and becomes O(Sqrt(n)) time complex
 	  	}
 	  	else {	  		
 	  		if (toRight > -1) toRight++;
-	  		root = delete(root, key);
+	  		root = supprimer(root, key);
 			 /* my own implementation.
 			  idea: the single difference with Hibbard deletion concerns the 2 children case only.
 			  My algorithm proceeds as follows:
