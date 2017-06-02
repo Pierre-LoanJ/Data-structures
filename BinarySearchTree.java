@@ -111,6 +111,18 @@ public class BinarySearchTree {
 	  else if (key < x.key)  x.left = delete(x.left, key); // go left
 	  return x;
   }
+ private void inorderRec(Node root) {
+      if (root != null) {
+    	  maxDepth++;
+          inorderRec(root.left);
+       //   System.out.print(root.key + " ");
+          inorderRec(root.right);
+          maxDepth--;
+      }
+      else {
+    	  depths.insert(maxDepth);
+      }
+  }
   public Integer min() {
 	return min(root).key;
   }
@@ -139,6 +151,10 @@ public class BinarySearchTree {
       else if (x.key >  key) x = x.left;
     }
     return null;
+  }
+  public void inorder() {
+	  maxDepth = 0;
+      inorderRec(root);
   }
   public void delete(int key) {
 	  	if (hibbard) {
