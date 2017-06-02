@@ -43,6 +43,26 @@ public class BinarySearchTree {
       return n;
     }
   }
+  private Node min(Node x) { 
+      if (x.left == null) return x; 
+      else                return min(x.left); 
+  }
+  private Node max(Node x) {
+	  while (x.right != null) { // another way
+		  x = x.right;
+	  }
+	  return x;
+  }
+  private int size(Node x) {
+      if (x == null) return 0;
+      else return x.size;
+  }
+  private Node deleteMin(Node x) {
+      if (x.left == null) return x.right;
+      x.left = deleteMin(x.left);
+      x.size = size(x.left) + size(x.right) + 1;
+      return x;
+  }
    private Node deleteHibbard(Node x, int key) {
 	  if (x == null) return null;
 	  if      (key < x.key) x.left  = deleteHibbard(x.left, key);
