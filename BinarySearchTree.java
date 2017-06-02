@@ -107,6 +107,26 @@ public class BinarySearchTree {
 	  else if (key < x.key)  x.left = delete(x.left, key); // go left
 	  return x;
   }
+  public Integer min() {
+	return min(root).key;
+  }
+  public Integer max() {
+	return max(root).key;
+  }
+  public int height() {
+	  // implementation from the course
+      return height(root);
+  }
+  public Integer size() {
+	  return size(root);
+  }
+  public double hauteur() {
+	  // my own implementation. REQUIRES THE TREE TO BE PARSED BY INORDER()
+	  return depths.getMax();
+  }
+  public Integer taille() {
+	  return this.count;
+  }
   public Integer get(Integer key) {
     Node x = root;
     while (x != null) {
