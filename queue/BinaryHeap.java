@@ -4,14 +4,14 @@ package queue;
 
 public class BinaryHeap {
 	private  int next;
-	private  int[] heap;
+	private  Integer[] heap;
 	
 	public BinaryHeap(int capacity) {
-		heap = new int [capacity+1]; // index 0 not used
+		heap = new Integer [capacity+1]; // index 0 not used
 		next = 0;
 	}
-	private int[] resize() {
-		int[] temp = new int[2 * heap.length];
+	private Integer[] resize() {
+		Integer[] temp = new Integer[2 * heap.length];
 		for (int i = 1; i < heap.length; i++) {
 			temp[i] = heap[i];
 		}
@@ -38,7 +38,7 @@ public class BinaryHeap {
 		int val = heap[1];
 		exch(1, next);
 		sink(1);
-		heap[next] = Integer.MIN_VALUE;
+		heap[next] = null;
 		next--;
 		return val;
 	}
@@ -61,17 +61,16 @@ public class BinaryHeap {
 	}
 	public static void main(String args[]) {
 		BinaryHeap bh = new BinaryHeap(2);
-		bh.insert(3);
-		bh.insert(9);
-		bh.insert(4);
-		bh.insert(1);
-		bh.insert(7);
-		bh.insert(2);
-		bh.insert(0);
-		bh.insert(8);
-		bh.insert(5);
-		bh.insert(6);
-		bh.delMax();
-		bh.insert(11);
+		System.out.println("building heap");
+		for (int i = 0; i < 10; i++) {
+			int rand = (int) (Math.random() * 10);
+			System.out.print(rand + " - ");
+			bh.insert(rand);
+		}
+		System.out.println("");
+		System.out.println("going through heap ");
+		for (int i = 0; i < 10; i++) {
+			System.out.print(bh.delMax() + " - ");
+		}
 	}
 }
