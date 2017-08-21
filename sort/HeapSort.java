@@ -28,5 +28,8 @@ public class HeapSort {
 		for (int i = 0; i < n; i++) {
 			System.out.print(res[i] + " - ");
 		}
+		int[] emp = new int[0];
+		System.out.print(" end - ");
+		
 	}
 }
