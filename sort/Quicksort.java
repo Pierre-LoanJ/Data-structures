@@ -1,5 +1,5 @@
 package sort;
-//import StdRandom;
+
 public class Quicksort {
 	  /*
 	  * The idea is partition the array recursively:
@@ -44,18 +44,74 @@ public class Quicksort {
 	   //StdRandom.shuffle(a);
 	    sort(a, 0, a.length - 1);
 	  }
-	 public static void main(String args[]) {
+	  public static void main(String args[]) {
 		 int t[] = { 4, 9, 1, 7, 5, 2, 8, 3, 0, 6 };
-		 sort(t);
-		 System.out.println(t[0]);
-		 System.out.println(t[1]);
-		 System.out.println(t[2]);
-		 System.out.println(t[3]);
-		 System.out.println(t[4]);
-		 System.out.println(t[5]);
-		 System.out.println(t[6]);
-		 System.out.println(t[7]);
-		 System.out.println(t[8]);
-		 System.out.println(t[9]);
+		  int a[] = { 1,2,3,4,5,6,7,8,9,10 };
+		 //int a[] = { 10, 9 ,6 , 5, 7, 4, 2, 1, 8, 3 };  
+		 //sort(t);
+		 shufflingFisherYates(a);
+		 sorting(a, 0, a.length - 1); 							// miss - 1 !!! 
+		 System.out.println("  finally  ");
+		 show(a);
 	 }
-}   
+	 
+	 // my personal code
+	 public static void sorting(int[] a, int lo, int hi) {
+		 if (hi <= lo) return;																// miss test and return statement
+		 int k = partitionning(a, lo, hi);
+		 sorting(a, lo, k -1);
+		 sorting(a, k+1, hi);
+	 }
+	 private static int partitionning(int[] a, int lo, int hi) {
+		 int k = lo;  		// partition element is at k 
+		 int i = lo + 1;
+		 int j = hi;
+		 while (true) {
+			 while (a[i] < a[k] && i < a.length - 1) {			 							// miss - 1 !!!  
+				 i++;
+			 }
+			 while (a[j] > a[k] && j >= 1) {			 									// miss >= 1 !!!   miss i <= j !!!
+				 j--;
+			 }
+			 if (j <= i) break;
+			 exch(a, i, j);
+		 }
+		 exch(a, k, j);
+		 return j;
+	 }
+	 private static void shufflingFisherYates(int[] a) {
+		 
+		 for (int i = a.length - 1; i >= 0; i--) {
+			 double rand = Math.random() * i; 		// trick: * i so we have rand < i so we touch indices only once 
+			 exch(a, i, (int) rand);							
+		 }
+		 System.out.println("  shuffle  ");
+		 show(a);
+		 
+		 // personal thought: but still (even if it is probalisticly unlikely to happen) 
+		 // we may not touch a certain range of upper indices if first random integers are by chance the ones in the lower bound area of the array
+		 // is it ?
+		 
+		 
+		 
+		 /* naive algorithm as we may touch some indices more than once and neve touch some others
+		 int l = a.length;
+		 int n = 3 * l;
+		 for (int i = 0; i < n; i++) {
+			 int rand = (int) Math.random() * l;
+			 if (rand != i && rand < a.length) exch(a, i, rand);
+			 else i--;
+		 }
+		 */
+	 }
+	 private static void show(int[] a) {
+		 for (int i = 0; i < a.length; i++) {
+			 System.out.print(a[i] + "  -  ");
+		 }
+	 }
+	 private static void exch(int[] a, int i, int j) {
+		 int tmp = a[i];
+		 a[i] = a[j];
+		 a[j] = tmp;
+	 }
+}
