@@ -26,10 +26,38 @@ public class SelectionSort {
 		}
 	}
 	
+	// revision
+	public static void sort(int[] a) {
+		for (int j = 0; j < a.length - 1; j++) {
+			int min = a[j+1];
+			int iMin = j + 1;
+			for (int i = j + 1; i < a.length; i++) {
+				if (a[i] < min) {
+					min = a[i];
+					iMin = i;
+				}
+			}
+			swap(a, iMin, j);
+		}
+	}
+	private static void swap(int[] a, int i, int j) {
+		int tmp = a[i];
+		a[i] = a[j];
+		a[j] = tmp;
+	}
 	public static void main(String[] args) {
-		int tableau[] = { 5, 8, 4, 3, 7, 1, 9, 6, 2, 0 };
-		selectionSort(tableau);
-		display(tableau);
+		int s = 100000;
+		int a[] = new int[s];
+		for (int i = 0; i < a.length; i++) {
+			a[i] = (int) (Math.random() * 10);
+		}
+		
+		double d = System.currentTimeMillis();
+		selectionSort(a);
+		double f = System.currentTimeMillis();
+		double t = f - d;
+		System.out.println("temps = " + t);
+		//display(a);
 	}
 	
 	public static void display (int t[]) {

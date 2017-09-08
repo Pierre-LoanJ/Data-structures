@@ -23,16 +23,32 @@ public class InsertionSort {
 				}
 			}	
 		}
+	
+	// revision
+	public static void sort(int[] a) {
+		for (int i = 1; i < a.length; i++) {
+			int j = i;
+			while(j >= 1 && a[j] < a[j-1]) {
+				swap(a, j, j-1);
+				j--;
+			}
+		}
+	}
+	private static void swap(int[] a, int i, int j) {
+		int tmp = a[i];
+		a[i] = a[j];
+		a[j] = tmp;
+	}
 
 	public static void main(String[] args) {
 		int tableau[] = { 5, 8, 4, 3, 7, 1, 9, 6, 2, 0 };
-		insertionSort(tableau);
+		sort(tableau);
 		display(tableau);
 	}
 
 	public static void display (int t[]) {
 		for (int i = 0; i < t.length; i++) {
-			System.out.println(t[i]);
+			System.out.print(t[i] + "  -  ");
 		}
 	}
 }
