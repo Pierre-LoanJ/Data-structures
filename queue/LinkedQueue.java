@@ -2,52 +2,38 @@ package queue;
 public class LinkedQueue<Type> {
 	private Node first, last;
 	
-	public LinkedQueue(){
+	/*public LinkedQueue(){
 		this.first = null;
 		this.last = null;
-	}
+	}*/
 	private class Node {
 		Type item;
 		Node next;
-	}
-	/*public LinkedQueueOfStrings() {
 		
-	}*/
-	
-	public boolean isEmpty() {
-		return first == null;
-	}
-	public void enqueue(Type item) {
-		Node oldlast = last;
-		Node last = new Node();
-		last.item = item;
-		last.next = null;
-		if (isEmpty()) first = last;
-		else oldlast.next = last;
-		
-		
-		/*Node oldlast = last;
-		last = new Node();
-		last.item = item;
-		last.next = null;
-		if (isEmpty()) first = last;		// ainsi first n'est plus nul (implémenter cas général et penser au cas limite: file vide)
-		else		   oldlast.next = last; // attention au sens!
-											// ne pas faire last.next = oldlast 
-											//car on perdrait la référence vers le nouveau first après suppression quand on enlève un item
-	*/
-	}
-	
-	public Type dequeue(){
-		/*String item = first.item;
-		first = first.next;
-		if (isEmpty()) last = null;			//cas limite: file vide
-		return item;*/
-		if (this.isEmpty()) {
-			last = null;
+		public Node(Type item) {
+			this.item = item;
+			this.next = null;
 		}
-		Type val = first.item;
+	}
+	public boolean isEmpty() {
+		return this.first == null;
+	}
+	public void enqueue(Type item) { // add at last
+		if (this.isEmpty()) {
+			last = new Node(item);
+			first = last;
+		}
+		else {
+			last.next = new Node(item);
+			last = last.next;
+		}
+	}
+	public Type dequeue() { // dequeue at first
+		if (this.isEmpty()) return null;
+		Type item = first.item;
 		first = first.next;
-		return val;
+		if (first == null) last = null;
+		return item;
 	}
 	public static void main(String[] args) {
 		LinkedQueue<String> file = new LinkedQueue<String>();
@@ -61,6 +47,7 @@ public class LinkedQueue<Type> {
 		 System.out.println(tab[0]);
 		 System.out.println(tab[1]);
 		 System.out.println(tab[2]);
+		 System.out.println("end");
 		}
 
 
